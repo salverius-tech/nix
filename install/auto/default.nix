@@ -41,7 +41,7 @@
 					sync
 					wait-for [ -b /dev/disk/by-partlabel/BOOT ]
 
-					wait-for mkfs.fat -F 32 -n boot /dev/disk/by-partlabel/BOOT
+					wait-for mkfs.fat -F 32 -n BOOT /dev/disk/by-partlabel/BOOT
 
 					wait-for [ -b /dev/disk/by-partlabel/NIXOS ]
 					mkfs.ext4 -L nixos /dev/mapper/root
