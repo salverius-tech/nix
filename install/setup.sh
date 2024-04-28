@@ -63,7 +63,7 @@ fi
 export HASHED_PASSWORD
 
 # download the configuation.nix template
-curl -s "https://raw.githubusercontent.com/ilude/nix/main/configuration.nix?$(date +%s)" > configuration.nix
+curl -s "https://raw.githubusercontent.com/salverius-tech/nix/main/sites/homelab/hosts/nxs-nix-test/configuration.nix" > configuration.nix
 
 # process the template
 envsubst "${HASHED_PASSWORD}" < configuration.nix > /mnt/etc/nixos/configuration.nix
