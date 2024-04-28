@@ -16,6 +16,7 @@
 
 	services.openssh.enable = true;
 	services.openssh.settings.PermitRootLogin = "yes";
+  services.qemuGuest.enable = true;
 
 	users.mutableUsers = false;
 	users.users.root = {
