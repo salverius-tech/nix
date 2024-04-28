@@ -44,8 +44,6 @@
 					wait-for mkfs.fat -F 32 -n boot /dev/disk/by-partlabel/BOOT
 
 					wait-for [ -b /dev/disk/by-partlabel/NIXOS ]
-					${cryptsetup}/bin/cryptsetup luksFormat --type=luks2 --label=root /dev/disk/by-partlabel/NIXOS /dev/zero --keyfile-size=1
-					${cryptsetup}/bin/cryptsetup luksOpen /dev/disk/by-partlabel/NIXOS root --key-file=/dev/zero --keyfile-size=1
 					mkfs.ext4 -L nixos /dev/mapper/root
 
 					sync
