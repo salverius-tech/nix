@@ -64,6 +64,8 @@ export HASHED_PASSWORD
 
 # download the configuation.nix template
 curl -s "https://raw.githubusercontent.com/salverius-tech/nix/main/sites/homelab/hosts/nxs-nix-test/configuration.nix" > configuration.nix
+curl -s "https://raw.githubusercontent.com/salverius-tech/nix/main/sites/homelab/hosts/nxs-nix-test/hardware-configuration.nix" > hardware-configuration.nix
+curl -s "https://raw.githubusercontent.com/salverius-tech/nix/main/common/starship.nix" > starship.nix
 
 # process the template
 envsubst "${HASHED_PASSWORD}" < configuration.nix > /mnt/etc/nixos/configuration.nix
