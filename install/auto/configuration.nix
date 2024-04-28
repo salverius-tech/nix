@@ -12,7 +12,7 @@
 
 	security.sudo.wheelNeedsPassword = false;
 
-	networking.hostName = "install";
+	networking.hostName = "nixos-install";
 
 	services.openssh.enable = true;
 	services.openssh.settings.PermitRootLogin = "yes";
@@ -50,4 +50,6 @@
 		wget
 		zip
 	];
+
+  system.stateVersion = "23.11";
 }

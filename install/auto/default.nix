@@ -36,7 +36,7 @@
 						name=BOOT, size=512MiB, type=C12A7328-F81F-11D2-BA4B-00A0C93EC93B
 						name=NIXOS
 					END
-					mkfs.fat -F 32 -n boot /dev/disk/by-partlabel/BOOT
+					mkfs.fat -F 32 -n BOOT /dev/disk/by-partlabel/BOOT
 
 					sync
 					wait-for [ -b /dev/disk/by-partlabel/BOOT ]
