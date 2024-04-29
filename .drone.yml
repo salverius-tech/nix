@@ -27,9 +27,11 @@ steps:
     - cp install/auto/default.nix .
     - cp install/auto/configuration.nix .
     - cp install/auto/hardware-configuration.nix .
-    - nix-build
+    # - nix-build
+    - nix-shell -p ssh-import-id
     - ssh-import-id gh:$GHUSER
-    - scp result/iso/*.iso $SSHUSER@$REMOTEHOST:/tmp/
+    # - scp result/iso/*.iso $SSHUSER@$REMOTEHOST:/tmp/
+    - scp default.nix $SSHUSER@$REMOTEHOST:/tmp/
 
 - name: notification
   image: appleboy/drone-discord

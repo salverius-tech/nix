@@ -1,6 +1,7 @@
 {
 	system ? "x86_64-linux",
 }:
+
 (import <nixpkgs/nixos/lib/eval-config.nix> {
 	inherit system;
 	modules = [
@@ -76,10 +77,14 @@
 					echo 'Shutting off in 1min'
 					${systemd}/bin/shutdown now
 				'';
+
+
 				environment = config.nix.envVars // {
 					inherit (config.environment.sessionVariables) NIX_PATH;
 					HOME = "/root";
 				};
+
+
 				serviceConfig = {
 					Type = "oneshot";
 				};

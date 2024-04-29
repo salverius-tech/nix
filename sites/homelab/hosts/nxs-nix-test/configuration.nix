@@ -38,8 +38,11 @@
     l    = "ls -alh";
     ll   = "ls -l";
     ls   = "ls --color=tty";
-    dps  = 'docker ps --format="table {{.Names}}\t{{.ID}}\t{{.Image}}\t{{.RunningFor}}\t{{.State}}\t{{.Status}}"';
-    dpsp = 'docker ps --format="table {{.Names}}\t{{.ID}}\t{{.Image}}\t{{.RunningFor}}\t{{.State}}\t{{.Status}}\t{{.Ports}}"';
+    dps  = ''docker ps --format="table {{.Names}}\t{{.ID}}\t{{.Image}}\t{{.RunningFor}}\t{{.State}}\t{{.Status}}"'';
+    dpsp = ''docker ps --format="table {{.Names}}\t{{.ID}}\t{{.Image}}\t{{.RunningFor}}\t{{.State}}\t{{.Status}}\t{{.Ports}}"'';
+    nix-gc = "nix-store --gc";
+    nix-rs = "sudo nixos-rebuild switch";
+    nix-code = "code /etc/nixos/configuration.nix";
   };
 
   # Use the GRUB 2 boot loader.
