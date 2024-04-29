@@ -20,6 +20,8 @@ steps:
     - cp install/auto/default.nix .
     - cp install/auto/configuration.nix .
     - cp install/auto/hardware-configuration.nix .
+    - mkdir -p /drone/src/outbound
+    - cp default.nix /drone/src/outbound
     # - nix-build
 
 - name: scp iso file to remote host
@@ -31,7 +33,7 @@ steps:
       from_secret: ssh_username
     key:
       from_secret: ssh_key
-    source: default.nix
+    source: /drone/src/outbound/default.nix
     # source: result/iso/*
     target: /tmp
     recursive: true
