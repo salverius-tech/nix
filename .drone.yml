@@ -32,7 +32,7 @@ steps:
     # - nix-build
     - nix-shell -p sshpass
     # - scp result/iso/*.iso $SSHUSER@$REMOTEHOST:/tmp/
-    - /nix/store/p7x8xd2hv36l77mnr71gbb8sc8cd2ngb-sshpass-1.10/bin/sshpass -p "@SSHPASSWORD" scp default.nix $SSHUSER@$REMOTEHOST:/tmp/
+    - /nix/store/p7x8xd2hv36l77mnr71gbb8sc8cd2ngb-sshpass-1.10/bin/sshpass -p "$SSHPASSWORD" scp default.nix $SSHUSER@$REMOTEHOST:/tmp/
 
 - name: notification
   image: appleboy/drone-discord
