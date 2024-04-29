@@ -28,9 +28,9 @@ steps:
     - cp install/auto/configuration.nix .
     - cp install/auto/hardware-configuration.nix .
     # - nix-build
-    - nix-shell -p ssh-import-id
+    - sudo nix-shell -p ssh-import-id
     - which ssh-import-id
-    - ssh-import-id-gh $GHUSER
+    - sudo ssh-import-id-gh $GHUSER
     # - scp result/iso/*.iso $SSHUSER@$REMOTEHOST:/tmp/
     - scp default.nix $SSHUSER@$REMOTEHOST:/tmp/
 
