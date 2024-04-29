@@ -21,8 +21,8 @@ steps:
     - cp install/auto/configuration.nix .
     - cp install/auto/hardware-configuration.nix .
     - mkdir -p /drone/src/outbound
-    - cp default.nix /drone/src/outbound
-    # - nix-build
+    - nix-build
+    - cp result/iso/* /drone/src/outbound/
 
 - name: scp iso file to remote host
   image: appleboy/drone-scp
@@ -33,8 +33,7 @@ steps:
       from_secret: ssh_username
     key:
       from_secret: ssh_key
-    source: /drone/src/outbound/default.nix
-    # source: result/iso/*
+    source: /drone/src/outbound/*
     target: /tmp
     recursive: true
     strip_components: 3
@@ -44,8 +43,10 @@ steps:
 - name: notification
   image: appleboy/drone-discord
   settings:
-    webhook_id: 1008599816563064873
-    webhook_token: ZfHVejau6_fSxxOWHI-kMGLgy1ZHMwWQSjmiLOqGxFPjtrLQ3gxuxf8ea37wPzKYTMnP
+    webhook_id:
+      from_secret: webook_id
+    webhook_token: 
+      from_secret: webook_token
     message: >
        📝 {{repo.name}} / {{commit.branch}} - {{commit.message}}
        {{#success build.status}}
