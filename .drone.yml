@@ -29,8 +29,8 @@ steps:
       from_secret: remote_host
     username:
       from_secret: ssh_username
-    password:
-      from_secret: ssh_password
+    key:
+      from_secret: ssh_key
     source: default.nix
     # source: result/iso/*
     target: /tmp
