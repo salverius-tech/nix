@@ -14,29 +14,29 @@ trigger:
       - install/auto/* 
 
 steps:
-- name: build
+- name: build iso file
   image: nixos/nix
-  environment:
-    GHUSER:
-      from_secret: github_user
-    SSHUSER:
-      from_secret: ssh_user
-    SSHPASSWORD:
-      from_secret: ssh_password
-    REMOTEHOST:
-      from_secret: remote_host
   commands:
-    - echo $GHUSER
-    - echo $SSHUSER
-    - echo $SSHPASSWORD
-    - echo $REMOTEHOST
     - cp install/auto/default.nix .
     - cp install/auto/configuration.nix .
     - cp install/auto/hardware-configuration.nix .
     # - nix-build
-    - nix-shell -p sshpass
-    # - scp result/iso/*.iso $SSHUSER@$REMOTEHOST:/tmp/
-    - /nix/store/p7x8xd2hv36l77mnr71gbb8sc8cd2ngb-sshpass-1.10/bin/sshpass -p "$SSHPASSWORD" scp default.nix $SSHUSER@$REMOTEHOST:/tmp/
+
+- name: scp iso file to remote host
+  image: appleboy/drone-scp
+  settings:
+    host:
+      from_secret: remote_host
+    username:
+      from_secret: ssh_username
+    password:
+      from_secret: ssh_password
+    source: default.nix
+    # source: result/iso/*
+    target: /tmp
+    recursive: true
+    strip_components: 2
+    port: 22
 
 - name: notification
   image: appleboy/drone-discord
