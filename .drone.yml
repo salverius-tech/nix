@@ -37,8 +37,9 @@ steps:
     # source: result/iso/*
     target: /tmp
     recursive: true
-    strip_components: 2
+    # strip_components: 2
     port: 22
+    overwrite: true
 
 - name: notification
   image: appleboy/drone-discord
