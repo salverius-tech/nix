@@ -4,19 +4,24 @@ kind: pipeline
 type: docker
 name: default
 
+
+trigger:
+  event:
+    - push
+    - pull_request
+  path:
+    include:
+      - install/auto/* 
+
 steps:
-- name: Build and Publish nexus bot
-  image: plugins/docker
-  settings:
-    repo: registry.nexus-central.tech/salsstuff/nexus-bot
-    registry: registry.nexus-central.tech
-    insecure: true
-  when:
-    event:
-      - push
-      - promote
-    status: 
-      - success
+- name: build
+  image: nixos/nix
+  commands:
+    - cp install/auto/default.nix .
+    - cp install/auto/configuration.nix .
+    - cp install/auto/hardware-configuration.nix .
+    - nix-build
+    - scp result/iso/*.iso root@172.30.100.76:/tmp/
 
 - name: notification
   image: appleboy/drone-discord

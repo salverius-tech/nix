@@ -34,6 +34,14 @@
     nix-ld.enable = true; 
   };
 
+  programs.zsh.shellAliases = {
+    l    = "ls -alh";
+    ll   = "ls -l";
+    ls   = "ls --color=tty";
+    dps  = 'docker ps --format="table {{.Names}}\t{{.ID}}\t{{.Image}}\t{{.RunningFor}}\t{{.State}}\t{{.Status}}"';
+    dpsp = 'docker ps --format="table {{.Names}}\t{{.ID}}\t{{.Image}}\t{{.RunningFor}}\t{{.State}}\t{{.Status}}\t{{.Ports}}"';
+  };
+
   # Use the GRUB 2 boot loader.
   # boot.loader.grub.enable = true;
   # boot.loader.grub.device = "/dev/sda"; # or "nodev" for efi only

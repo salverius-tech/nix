@@ -57,8 +57,6 @@
 							mount -o umask=077 /dev/disk/by-label/boot /mnt/boot
 					fi
 
-					# nixos-generate-config --root /mnt
-
 					install -D ${./configuration.nix} /mnt/etc/nixos/configuration.nix
 					install -D ${./hardware-configuration.nix} /mnt/etc/nixos/hardware-configuration.nix
 
