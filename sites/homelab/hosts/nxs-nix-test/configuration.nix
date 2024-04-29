@@ -35,8 +35,8 @@
   };
 
   # Use the GRUB 2 boot loader.
-  boot.loader.grub.enable = true;
-  boot.loader.grub.device = "/dev/sda"; # or "nodev" for efi only
+  # boot.loader.grub.enable = true;
+  # boot.loader.grub.device = "/dev/sda"; # or "nodev" for efi only
 
   fonts.packages = with pkgs; [
     noto-fonts
@@ -72,6 +72,7 @@
       htop
       iproute2
       jq
+      just
       killall
       less
       libuuid

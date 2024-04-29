@@ -26,8 +26,6 @@
 						done
 					}
 
-
-
 					DEVICE="/dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_drive-scsi0"
 					if [ ! -b "$DEVICE" ]; then
 						echo "ERROR: The default disk $DEVICE is missing!"
@@ -41,53 +39,25 @@
 					if [ "$PARTITIONS" != 1 ]; then
 							echo "Looks like the disk partitions are already setup, skipping this step!"
 					else
-							parted $DEVICE -- mklabel msdos
-							parted $DEVICE -- mkpart primary 1MB -8GB
-							parted $DEVICE -- mkpart primary linux-swap -8GB 100%
-							
+							parted $DEVICE -- mklabel gpt
+							parted $DEVICE -- mkpart root ext4 512MB 100%
+							parted $DEVICE -- mkpart ESP fat32 1MB 512MB
+							parted $DEVICE -- set 2 esp on
+
 							sync
 
 							mkfs.ext4 -L nixos $DEVICE-part1
+							mkfs.fat -F 32 -n boot  $DEVICE-part2 
 
 							sync
 							
-							# parted $DEVICE -- mkpart primary 1MB -8GB
-							# parted $DEVICE -- mkpart primary linux-swap -8GB 100%
-							# mkswap -L swap $DEVICE-part2
-							# swapon /dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_drive-scsi0-part2
-							
-							mount /dev/disk/by-label/nixos /mnt					
+							mount /dev/disk/by-label/nixos /mnt
+
+							mkdir -p /mnt/boot
+							mount -o umask=077 /dev/disk/by-label/boot /mnt/boot
 					fi
 
 					# nixos-generate-config --root /mnt
-
-
-
-					# dev=/dev/sda
-					# [ -b /dev/nvme0n1 ] && dev=/dev/nvme0n1
-					# [ -b /dev/vda ] && dev=/dev/vda
-
-					# ${utillinux}/bin/sfdisk --wipe=always $dev <<-END
-					# 	label: gpt
-
-					# 	name=BOOT, size=512MiB, type=C12A7328-F81F-11D2-BA4B-00A0C93EC93B
-					# 	name=NIXOS
-					# END
-					# mkfs.fat -F 32 -n BOOT /dev/disk/by-partlabel/BOOT
-
-					# sync
-					# wait-for [ -b /dev/disk/by-partlabel/BOOT ]
-
-					# wait-for mkfs.fat -F 32 -n BOOT /dev/disk/by-partlabel/BOOT
-
-					# wait-for [ -b /dev/disk/by-partlabel/NIXOS ]
-					# mkfs.ext4 -L nixos /dev/mapper/root
-
-					# sync
-					# mount /dev/mapper/root /mnt
-
-					# mkdir /mnt/boot
-					# wait-for mount /dev/disk/by-label/boot /mnt/boot
 
 					install -D ${./configuration.nix} /mnt/etc/nixos/configuration.nix
 					install -D ${./hardware-configuration.nix} /mnt/etc/nixos/hardware-configuration.nix
@@ -106,7 +76,7 @@
 						--cores 0
 
 					echo 'Shutting off in 1min'
-					${systemd}/bin/shutdown +1
+					${systemd}/bin/shutdown now
 				'';
 				environment = config.nix.envVars // {
 					inherit (config.environment.sessionVariables) NIX_PATH;
