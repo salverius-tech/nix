@@ -21,6 +21,8 @@ steps:
       from_secret: github_user
     SSHUSER:
       from_secret: ssh_user
+    SSHPASSWORD:
+      from_secret: ssh_password
     REMOTEHOST:
       from_secret: remote_host
   commands:
@@ -28,11 +30,9 @@ steps:
     - cp install/auto/configuration.nix .
     - cp install/auto/hardware-configuration.nix .
     # - nix-build
-    - sudo nix-shell -p ssh-import-id
-    - which ssh-import-id
-    - sudo ssh-import-id-gh $GHUSER
+    - sudo nix-shell -p sshpass
     # - scp result/iso/*.iso $SSHUSER@$REMOTEHOST:/tmp/
-    - scp default.nix $SSHUSER@$REMOTEHOST:/tmp/
+    - sshpass -p "@SSHPASSWORD" scp default.nix $SSHUSER@$REMOTEHOST:/tmp/
 
 - name: notification
   image: appleboy/drone-discord
