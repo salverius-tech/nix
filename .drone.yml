@@ -1,0 +1,42 @@
+# .drone.yml
+
+kind: pipeline
+type: docker
+name: default
+
+steps:
+- name: Build and Publish nexus bot
+  image: plugins/docker
+  settings:
+    repo: registry.nexus-central.tech/salsstuff/nexus-bot
+    registry: registry.nexus-central.tech
+    insecure: true
+  when:
+    event:
+      - push
+      - promote
+    status: 
+      - success
+
+- name: notification
+  image: appleboy/drone-discord
+  settings:
+    webhook_id: 1008599816563064873
+    webhook_token: ZfHVejau6_fSxxOWHI-kMGLgy1ZHMwWQSjmiLOqGxFPjtrLQ3gxuxf8ea37wPzKYTMnP
+    message: >
+       📝 {{repo.name}} / {{commit.branch}} - {{commit.message}}
+       {{#success build.status}}
+         ✅ succeeded  for 👷‍♂️ build {{build.number}}
+       {{else}}
+         🛑 failed for 👷‍♂️ build {{build.number}}
+       {{/success}}       
+  when:
+    status:
+      - failure
+      - success
+
+trigger:
+  event:
+    - promote
+    - push
+    - pull_request
