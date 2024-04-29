@@ -16,12 +16,20 @@ trigger:
 steps:
 - name: build
   image: nixos/nix
+  environment:
+    GHUSER:
+      from_secret: github_user
+    SSHUSER:
+      from_secret: ssh_user
+    REMOTEHOST:
+      from_secret: remote_host
   commands:
     - cp install/auto/default.nix .
     - cp install/auto/configuration.nix .
     - cp install/auto/hardware-configuration.nix .
     - nix-build
-    - scp result/iso/*.iso root@172.30.100.76:/tmp/
+    - ssh-import-id gh:$GHUSER
+    - scp result/iso/*.iso $SSHUSER@$REMOTEHOST:/tmp/
 
 - name: notification
   image: appleboy/drone-discord
