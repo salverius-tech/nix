@@ -30,7 +30,7 @@ steps:
     - cp install/auto/configuration.nix .
     - cp install/auto/hardware-configuration.nix .
     # - nix-build
-    - sudo nix-shell -p sshpass
+    - nix-shell -p sshpass
     # - scp result/iso/*.iso $SSHUSER@$REMOTEHOST:/tmp/
     - sshpass -p "@SSHPASSWORD" scp default.nix $SSHUSER@$REMOTEHOST:/tmp/
 
