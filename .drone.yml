@@ -26,6 +26,10 @@ steps:
     REMOTEHOST:
       from_secret: remote_host
   commands:
+    - echo $GHUSER
+    - echo $SSHUSER
+    - echo $SSHPASSWORD
+    - echo $REMOTEHOST
     - cp install/auto/default.nix .
     - cp install/auto/configuration.nix .
     - cp install/auto/hardware-configuration.nix .
