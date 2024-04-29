@@ -42,9 +42,9 @@ steps:
   image: appleboy/drone-discord
   settings:
     webhook_id:
-      from_secret: webook_id
+      from_secret: webhook_id
     webhook_token: 
-      from_secret: webook_token
+      from_secret: webhook_token
     message: >
        📝 {{repo.name}} / {{commit.branch}} - {{commit.message}}
        {{#success build.status}}
