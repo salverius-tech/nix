@@ -4,6 +4,13 @@ kind: pipeline
 type: docker
 name: default
 
+trigger:
+  event:
+    - push
+  paths:
+    include:
+      - install/auto/*
+
 steps:
 - name: build iso file
   image: nixos/nix
@@ -49,11 +56,3 @@ steps:
     status:
       - failure
       - success
-    
-trigger:
-  event:
-    - push
-    - pull_request
-  path:
-    include:
-      - install/auto/* 
