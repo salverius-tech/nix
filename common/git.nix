@@ -30,7 +30,7 @@
 
     extraConfig = {
       branch = {
-        autoSetupRebase = always;
+        autoSetupRebase = true;
       };
       color = {
         ui = "auto";
@@ -63,7 +63,7 @@
       };
 
   };
+};
 }
-
-[credential]
-	helper = "!f() { /home/anvil/.vscode-server/bin/b7886d7461186a5eac768481578c1d7ca80e2d21/node /tmp/vscode-remote-containers-94558b03-c51d-42f9-84e0-6a417caaddc6.js git-credential-helper $*; }; f"
+# [credential]
+# 	helper = "!f() { /home/anvil/.vscode-server/bin/b7886d7461186a5eac768481578c1d7ca80e2d21/node /tmp/vscode-remote-containers-94558b03-c51d-42f9-84e0-6a417caaddc6.js git-credential-helper $*; }; f"
