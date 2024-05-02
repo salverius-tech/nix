@@ -24,7 +24,6 @@
       curl
       docker
       docker-buildx
-      docker-compose
       eza
       findutils
       fzf
@@ -42,6 +41,8 @@
       mkpasswd
       netcat
       nettools
+      nixfmt
+      nixpkgs-fmt
       nmap
       openssl
       python3
@@ -60,8 +61,12 @@
       util-linux
       wget
       yq
+      zsh
+      zsh-fzf-tab
+      zsh-completions
       zsh-autosuggestions
-      zsh-syntax-highlighting
+      nix-zsh-completions
+      zsh-syntax-highlighting    
     ];
   };
 

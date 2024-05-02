@@ -1,14 +1,14 @@
 { config, pkgs, ... }: {
-	boot.loader.systemd-boot.enable = true;
 
-	fileSystems."/boot" = {
-		device = "/dev/disk/by-label/boot";
-		fsType = "vfat";
-	};
+   boot.growPartition = true;
+   boot.kernelParams = [ "console=ttyS0" ];
+   boot.loader.grub.device = "/dev/vda";
+   boot.loader.timeout = 0;
+   
+	 fileSystems."/" = {
+      device = "/dev/disk/by-label/nixos";
+      fsType = "ext4";
+      autoResize = true;
+    };
 
-	fileSystems."/" = {
-		device = "/dev/disk/by-label/nixos";
-		fsType = "ext4";
-	};
-	
 }

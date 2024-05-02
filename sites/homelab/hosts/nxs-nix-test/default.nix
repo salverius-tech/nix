@@ -1,19 +1,17 @@
-{ config, lib, pkgs, ... }:
-{
+{ config, lib, pkgs, ... }: let
+  # Import the secrets.nix file
+  secrets = import ./.secrets;
+in {
   imports = [
+     <nixpkgs/nixos/modules/profiles/qemu-guest.nix>
     ./base-config.nix
-    ./git.nix
     ./hardware-configuration.nix
-    ./networking.nix
     ./packages.nix
-    ./starship.nix
   ];
-
-  system.autoUpgrade.enable = true;
 
   time.timeZone = "America/Los_Angeles";
 
-	networking.hostName = "nxs-nix-test";
+  networking.hostName = "nxs-nix-test";
 
   services.openssh = {
     enable = true;
@@ -25,5 +23,6 @@
   virtualisation.docker.enable = true;
 
   system.stateVersion = "23.11";
+  system.autoUpgrade.enable = true;
 
 }

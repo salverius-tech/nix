@@ -7,13 +7,17 @@
     experimental-features = [ "nix-command" "flakes" "repl-flake" ];
   };
 
-  # Define a user account.
-  users.users.systemboss = {
+ # Reference the username and password from secrets.nix
+  users.users."${secrets.user.username}" = {
     isNormalUser = true;
     extraGroups = [ "wheel" "docker" "systemd-journal" ];
     shell = pkgs.zsh;
-    # hashedPassword = "${HASHED_PASSWORD}";
-    #packages = with pkgs; [];
+    hashedPassword = "${secrets.user.password}";
+  };
+
+  # Set the root's hashed password from secrets.nix
+  users.extraUsers.root = {
+    hashedPassword = "${secrets.root.password}";
   };
 
   security.sudo.wheelNeedsPassword = false;
