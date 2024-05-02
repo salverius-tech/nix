@@ -1,6 +1,7 @@
-{ config, lib, pkgs, ... }:
-
-{
+{ config, lib, pkgs, ... }: let
+  # Import the secrets.nix file
+  secrets = import ./.secrets;
+in {
 
   nix.settings = {
     auto-optimise-store = true;

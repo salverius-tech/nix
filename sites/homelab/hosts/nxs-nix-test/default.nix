@@ -3,7 +3,7 @@
   secrets = import ./.secrets;
 in {
   imports = [
-     <nixpkgs/nixos/modules/profiles/qemu-guest.nix>
+    #  <nixpkgs/nixos/modules/profiles/qemu-guest.nix>
     ./base-config.nix
     ./hardware-configuration.nix
     ./packages.nix
